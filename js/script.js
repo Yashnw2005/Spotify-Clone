@@ -2,6 +2,9 @@ let currentSong = new Audio();
 let songs = [];
 let currFolder = "";
 
+const SONG_BUCKET =
+"https://yash-spotify-songs.s3.ap-south-1.amazonaws.com/songs";
+
 // Function to format time in MM:SS
 const secondsToMinutesSeconds = (seconds) => {
     if (isNaN(seconds) || seconds < 0) return "00:00";
@@ -53,7 +56,8 @@ async function getSongs(folder) {
 
 // Play a song
 const playMusic = (track, pause = false) => {
-    currentSong.src = `songs/${currFolder}/` + track;
+   currentSong.src =
+`${SONG_BUCKET}/${currFolder}/${track}`;
     currentSong.load();
     if (!pause) {
         currentSong.play();
