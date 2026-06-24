@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Spotify Signup</title>
+
+<style>
+
+body{
+    background:#121212;
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    font-family:Arial,sans-serif;
+}
+
+.container{
+    width:350px;
+    background:#181818;
+    padding:30px;
+    border-radius:12px;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+    border:none;
+    border-radius:8px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    margin-top:15px;
+    background:#1DB954;
+    border:none;
+    color:white;
+    border-radius:8px;
+}
+
+a{
+    color:#1DB954;
+    text-decoration:none;
+}
+
+p{
+    text-align:center;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Create Account</h1>
+
+<input type="text" id="name" placeholder="Name">
+
+<input type="email" id="email" placeholder="Email">
+
+<input type="password" id="password" placeholder="Password">
+
+<button id="signupBtn">Create Account</button>
+
+<p>
+Already have an account?
+<a href="login.html">Login</a>
+</p>
+
+</div>
+
+<script src="js/auth.js"></script>
+
+</body>
+</html>
