@@ -105,7 +105,7 @@ authSubmit.addEventListener("click", () => {
         "6sihldp8pdulo7gbril5qt5fu3";
 
     const redirectUri =
-        "http://127.0.0.1:5500";
+    "https://main.d2kk1brrg39ha7.amplifyapp.com/";
 
     const domain =
         "https://ap-south-11hmmd2yzb.auth.ap-south-1.amazoncognito.com";
