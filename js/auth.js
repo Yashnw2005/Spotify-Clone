@@ -18,7 +18,7 @@ let signupMode = false;
 const clientId = "6sihldp8pdulo7gbril5qt5fu3";
 
 const redirectUri =
-    "https://main.d2kk1brrg39ha7.amplifyapp.com/";
+    "https://main.d2kk1brrq39ha7.amplifyapp.com/";
 
 const domain =
     "https://ap-south-11hmmd2yzb.auth.ap-south-1.amazoncognito.com";
@@ -109,15 +109,6 @@ switchAuth.addEventListener("click", () => {
 
 authSubmit.addEventListener("click", () => {
 
-    const clientId =
-        "6sihldp8pdulo7gbril5qt5fu3";
-
-    const redirectUri =
-    "https://main.d2kk1brrg39ha7.amplifyapp.com/";
-
-    const domain =
-        "https://ap-south-11hmmd2yzb.auth.ap-south-1.amazoncognito.com";
-
     if (signupMode) {
 
         window.location.href =
@@ -128,6 +119,7 @@ authSubmit.addEventListener("click", () => {
         window.location.href =
             `${domain}/login?client_id=${clientId}&response_type=code&scope=email+openid&redirect_uri=${encodeURIComponent(redirectUri)}`;
     }
+
 });
 
 // ===============================
@@ -172,7 +164,7 @@ if (logoutBtn) {
         const clientId = "6sihldp8pdulo7gbril5qt5fu3";
 
         const logoutUri =
-            "https://main.d2kk1brrg39ha7.amplifyapp.com/";
+            "https://main.d2kk1brrq39ha7.amplifyapp.com/";
 
         const domain =
             "https://ap-south-11hmmd2yzb.auth.ap-south-1.amazoncognito.com";
