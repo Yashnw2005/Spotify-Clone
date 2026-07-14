@@ -15,6 +15,14 @@ const authPassword = document.getElementById("authPassword");
 
 let signupMode = false;
 
+const clientId = "6sihldp8pdulo7gbril5qt5fu3";
+
+const redirectUri =
+    "https://main.d2kk1brrg39ha7.amplifyapp.com/";
+
+const domain =
+    "https://ap-south-11hmmd2yzb.auth.ap-south-1.amazoncognito.com";
+
 // Clear form
 function clearForm() {
     authEmail.value = "";
@@ -121,3 +129,57 @@ authSubmit.addEventListener("click", () => {
             `${domain}/login?client_id=${clientId}&response_type=code&scope=email+openid&redirect_uri=${encodeURIComponent(redirectUri)}`;
     }
 });
+
+// ===============================
+// Check if user returned from Cognito
+// ===============================
+
+window.addEventListener("load", () => {
+
+    const params = new URLSearchParams(window.location.search);
+
+    const code = params.get("code");
+
+    if (code) {
+
+        // Hide Login & Signup
+        document.getElementById("openLogin").style.display = "none";
+        document.getElementById("openSignup").style.display = "none";
+
+        // Show User Section
+        document.getElementById("userSection").style.display = "flex";
+
+        // Temporary user text
+         document.getElementById("userEmail").innerHTML =
+         "👤 Logged In";
+
+        // Remove ?code=... from URL
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+
+});
+
+// ===============================
+// Logout
+// ===============================
+
+const logoutBtn = document.getElementById("logoutBtn");
+
+if (logoutBtn) {
+
+    logoutBtn.addEventListener("click", () => {
+
+        const clientId = "6sihldp8pdulo7gbril5qt5fu3";
+
+        const logoutUri =
+            "https://main.d2kk1brrg39ha7.amplifyapp.com/";
+
+        const domain =
+            "https://ap-south-11hmmd2yzb.auth.ap-south-1.amazoncognito.com";
+
+        window.location.href =
+            `${domain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(logoutUri)}`;
+
+    });
+
+}
