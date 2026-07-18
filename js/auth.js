@@ -69,6 +69,7 @@ closeBtn.addEventListener("click", () => {
     modal.style.display = "none";
 });
 
+
 // Close when clicking outside modal
 window.addEventListener("click", (e) => {
 
@@ -122,17 +123,42 @@ authSubmit.addEventListener("click", () => {
 
 });
 
+async function exchangeCodeForToken(code) {
+
+    const response = await fetch(
+        `${domain}/oauth2/token`,
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body:
+                `grant_type=authorization_code` +
+                `&client_id=${clientId}` +
+                `&code=${code}` +
+                `&redirect_uri=${encodeURIComponent(redirectUri)}`
+        }
+    );
+
+    return await response.json();
+}
+
 // ===============================
 // Check if user returned from Cognito
 // ===============================
 
-window.addEventListener("load", () => {
+window.addEventListener("load", async () => {
 
     const params = new URLSearchParams(window.location.search);
-
     const code = params.get("code");
 
-    if (code) {
+    if (!code) return;
+
+    try {
+
+        const tokens = await exchangeCodeForToken(code);
+
+        console.log("Tokens:", tokens);
 
         // Hide Login & Signup
         document.getElementById("openLogin").style.display = "none";
@@ -141,12 +167,10 @@ window.addEventListener("load", () => {
         // Show User Section
         document.getElementById("userSection").style.display = "flex";
 
-        // Temporary user text
-         document.getElementById("userEmail").innerHTML =
-         "👤 Logged In";
+    } catch (error) {
 
-        // Remove ?code=... from URL
-        window.history.replaceState({}, document.title, window.location.pathname);
+        console.error("Login Error:", error);
+
     }
 
 });
