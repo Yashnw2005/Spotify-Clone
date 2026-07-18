@@ -161,6 +161,23 @@ function parseJwt(token) {
 // ===============================
 
 window.addEventListener("load", async () => {
+    
+    // Check if user is already logged in
+const savedUser = localStorage.getItem("spotifyUser");
+
+if (savedUser) {
+
+    const user = JSON.parse(savedUser);
+
+    document.getElementById("openLogin").style.display = "none";
+    document.getElementById("openSignup").style.display = "none";
+    document.getElementById("userSection").style.display = "flex";
+
+    document.getElementById("userEmail").textContent =
+        user.email || user["cognito:username"] || "User";
+
+    return;
+}
 
     const params = new URLSearchParams(window.location.search);
     const code = params.get("code");
@@ -170,11 +187,13 @@ window.addEventListener("load", async () => {
     try {
 
         const tokens = await exchangeCodeForToken(code);
-
         console.log("Tokens:", tokens);
-        const user = parseJwt(tokens.id_token);
 
+        const user = parseJwt(tokens.id_token);
         console.log("User:", user);
+
+        // Save session
+        localStorage.setItem("spotifyUser", JSON.stringify(user));
 
         // Hide Login & Signup
         document.getElementById("openLogin").style.display = "none";
@@ -182,6 +201,10 @@ window.addEventListener("load", async () => {
 
         // Show User Section
         document.getElementById("userSection").style.display = "flex";
+        const userEmail = document.getElementById("userEmail");
+
+        userEmail.textContent =
+            user.email || user["cognito:username"] || "User";
 
     } catch (error) {
 
@@ -200,7 +223,9 @@ const logoutBtn = document.getElementById("logoutBtn");
 if (logoutBtn) {
 
     logoutBtn.addEventListener("click", () => {
-
+        
+        localStorage.removeItem("spotifyUser");
+        
         const clientId = "6sihldp8pdulo7gbril5qt5fu3";
 
         const logoutUri =
