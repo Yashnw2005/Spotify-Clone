@@ -144,6 +144,19 @@ async function exchangeCodeForToken(code) {
 }
 
 // ===============================
+// Decode JWT
+// ===============================
+
+function parseJwt(token) {
+
+    const base64Url = token.split(".")[1];
+    const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+
+    return JSON.parse(atob(base64));
+
+}
+
+// ===============================
 // Check if user returned from Cognito
 // ===============================
 
@@ -159,6 +172,9 @@ window.addEventListener("load", async () => {
         const tokens = await exchangeCodeForToken(code);
 
         console.log("Tokens:", tokens);
+        const user = parseJwt(tokens.id_token);
+
+        console.log("User:", user);
 
         // Hide Login & Signup
         document.getElementById("openLogin").style.display = "none";
